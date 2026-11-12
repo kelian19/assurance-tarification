@@ -70,3 +70,4 @@ La source ne permet pas de vérifier les garanties actuelles, la maturité à l�
 ## Note méthodologique à partager
 
 [PDF — méthodes et mathématiques](docs/latex/note_tarification.pdf) · [Source LaTeX](docs/latex/note_tarification.tex).
+La note comporte quatre figures (calibration agrégée, ratios observé/prédit par segment, Poisson contre NB2 et gros sinistres, personnalisation), générées par `python -m pipeline.make_figures` (dépendance : `matplotlib`) à partir des rapports versionnés ; l'exemple chiffré de la note y est recalculé et contrôlé.

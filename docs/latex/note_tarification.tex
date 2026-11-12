@@ -1,8 +1,15 @@
 \documentclass[11pt,a4paper]{article}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{lmodern}
-\renewcommand{\familydefault}{\sfdefault}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{lmodern}
+  \renewcommand{\familydefault}{\sfdefault}
+\else
+  \usepackage{fontspec}
+  \setmainfont{lmsans10-regular}[Extension=.otf,BoldFont=lmsans10-bold,ItalicFont=lmsans10-oblique,BoldItalicFont=lmsans10-boldoblique]
+  \setmonofont{lmmono10-regular}[Extension=.otf]
+\fi
 \usepackage{babel}
 \babelprovide[import,main]{french}
 \usepackage[a4paper,margin=1.9cm,top=1.7cm,bottom=1.8cm]{geometry}
@@ -14,6 +21,9 @@
 \usepackage{enumitem}
 \usepackage{fancyhdr,lastpage}
 \usepackage{titlesec}
+\usepackage{graphicx}
+\usepackage{caption}
+\captionsetup{font={small,color=Muted},labelfont={bf,color=Forest},skip=3pt}
 \usepackage{hyperref}
 \definecolor{Forest}{HTML}{174F43}
 \definecolor{Sage}{HTML}{EDF2E6}
@@ -131,8 +141,13 @@ La convention est \emph{forme/taux}. Le lien log de la Gamma est valide et non c
 
 \smallnote{Variables : tranches d'âge conducteur et véhicule, puissance fiscale, carburant, zone et région historique. L'identifiant est exclu. Le bonus-malus est exclu pour éviter de réutiliser explicitement le même historique dans l'ajustement a posteriori. Les bornes sont fixes ; l'encodage est ajusté sur l'apprentissage.}
 
-\newpage
 \section{Poisson, NB2 et validation de la charge}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figures/fig_calibration.pdf}
+\caption{Calibration agrégée par échantillon. Le nombre de sinistres est bien reproduit (98,9\,\% sur le test), mais la charge prédite dépasse la charge observée sur le test : le ratio observé/prédit tombe à 82,4\,\%, avec un intervalle bootstrap de 72,6 à 92,8\,\%. Le défaut vient de la sévérité, pas de la fréquence.}\label{fig:calibration}
+\end{figure}
+
 \subsection*{Une variance plus souple ne garantit pas une meilleure prime}
 Pour une même forme de moyenne $\mu_i=e_i\exp(x_i^\top\beta)$ :
 \[
@@ -158,6 +173,12 @@ Déviance Tweedie de prime pure, test & 80,511 & 80,544 \\
 \end{center}
 \textbf{Décision mesurée :} conserver Poisson comme référence. La NB2 améliore ici la description probabiliste des nombres, mais pas la prime pure. Le test ayant déjà été vu, cette comparaison supplémentaire est un diagnostic, pas une nouvelle validation indépendante.
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figures/fig_diagnostics.pdf}
+\caption{À gauche, écarts mesurés entre la binomiale négative et le Poisson : ils sont d'ordre inférieur au pourcent et ne justifient pas un changement de modèle. À droite, excédent moyen par sinistre au-delà de chaque seuil sur l'apprentissage : quelques dizaines de sinistres pèsent sur la moyenne de toute la base.}\label{fig:diagnostics}
+\end{figure}
+
 \subsection*{Le point sensible : les gros sinistres}
 Le coût moyen observé est d'environ \textbf{2\,367\texteuro{}} en apprentissage, \textbf{2\,248\texteuro{}} en validation et \textbf{1\,974\texteuro{}} en test. Les dix plus gros sinistres représentent \textbf{21,4\,\%} de la charge d'apprentissage.
 
@@ -171,7 +192,12 @@ Une variante a testé un plafond à 100\,000\texteuro{} avec recharge des excéd
 Un plafonnement sans recharge change la cible. Multiplier les primes par le ratio 0,824 observé sur le test ferait aussi perdre l'indépendance de cette évaluation. Les corrections futures doivent être choisies ailleurs, puis évaluées sur de nouvelles données.
 \end{limitbox}
 
-\newpage
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figures/fig_segments.pdf}
+\caption{Rapport observé/prédit par segment du jeu de test. Un point creux est le nombre de sinistres, un point plein la charge ; la surface est proportionnelle à l'exposition. Le ratio du nombre reste à $\pm10\,\%$ de 1 pour 26 segments sur 35, celui de la charge pour 6 seulement ; l'écart est le plus fort dans les segments à faible exposition (Corse : 4,7, valeur tronquée sur la figure).}\label{fig:segments}
+\end{figure}
+
 \section{Prime bayésienne : apprendre du nombre}
 \subsection*{Un effet individuel multiplicatif}
 La fréquence du GLM décrit la moyenne du profil. On introduit un risque latent $U_i$ :
@@ -209,9 +235,14 @@ L'écriture de droite vaut pour $t_i>0$. Sans historique, la formule de gauche r
 
 Prime pure initiale : \textbf{157,84\texteuro{}/an}. En supposant trois années sans sinistre, la prime bayésienne vaut \textbf{117,27\texteuro{}/an}, dans la base économique historique du modèle.
 \end{keybox}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figures/fig_personalisation.pdf}
+\caption{Personnalisation pour le profil illustré (conducteur de 45 ans). À gauche, la prime bayésienne baisse vite avec les années sans sinistre ; la crédibilité structurelle, avec $K\simeq261$ années, bouge à peine. À droite, effet de sinistres fictifs sur trois ans. Les historiques sont des exemples de calcul, pas des données observées.}\label{fig:personalisation}
+\end{figure}
+
 \smallnote{Cette version ajuste la fréquence, pas la sévérité individuelle. Elle suppose un profil comparable sur l'historique et la période future. La performance de renouvellement n'est pas validée sur un panel longitudinal.}
 
-\newpage
 \section{Crédibilité : apprendre des coûts}
 \subsection*{Le cadre non paramétrique de référence}
 Pour une charge annuelle $X$ et un risque latent $\Theta$, on définit
@@ -254,7 +285,6 @@ Pour des périodes partielles, cette pondération suppose une variance du coût 
 Sur le profil illustré précédemment, $K\simeq260{,}996$ années. Avec trois années sans sinistre, la prime de crédibilité vaut \textbf{156,05\texteuro{}/an}. Le faible poids des coûts individuels reflète ici leur forte variabilité et les hypothèses structurelles ; il ne s'agit pas d'un réglage arbitraire $K=4$.
 \end{keybox}
 
-\newpage
 \section{Du coût attendu au montant proposé}
 \subsection*{Base économique et durée de couverture}
 Le tarif est exprimé dans la base économique historique de la source. Si le métier fournit un facteur d'évolution des coûts $I$, le moteur utilise $m_i^{\rm cible}=I\,m_i$. Ce facteur doit être justifié ; $I=1$ n'actualise rien. Les charges historiques saisies doivent être exprimées dans la même base.
