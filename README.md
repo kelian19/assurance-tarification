@@ -66,3 +66,7 @@ Poisson à lien log avec exposition ; Gamma à lien log pour les coûts. Le bonu
 La source ne permet pas de vérifier les garanties actuelles, la maturité à l’ultime, les taxes, les frais compagnie, la réassurance ou l’inflation propre à la branche. Une mise en production exige ces éléments, une revue actuarielle indépendante et un suivi des dérives. L’application actuelle n’est pas un système d’émission d’offres.
 
 [Plan et audit initial](docs/PLAN.md)
+
+## Note méthodologique à partager
+
+[PDF — méthodes et mathématiques](docs/latex/note_tarification.pdf) · [Source LaTeX](docs/latex/note_tarification.tex).
