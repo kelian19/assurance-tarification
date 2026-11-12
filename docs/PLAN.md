@@ -3,7 +3,7 @@
 ## Décision proposée
 Python + Streamlit + Plotly pour deux démonstrateurs, R comme référence actuarielle. Alternative : R/Shiny si la proximité avec le cours prime sur la présentation Python. Ne pas maintenir deux moteurs complets dès la V1.
 
-Statut : analyse et cadrage ; applications à développer.
+Statut : calculateur métier réalisé pour la tarification ; entraînement des GLM et outil de provisionnement à développer.
 
 ## Analyse du cours
 Nicolas Baradel, Mathématiques de l’assurance dommages, version du 8 septembre 2026, 69 pages numérotées hors couverture.
@@ -73,7 +73,7 @@ Question : comment transformer un profil en prime pure explicable ?
 8. Interface : portefeuille, modèles/diagnostics, simulateur de profil, export. Montrer la prime pure et les effets multiplicatifs.
 
 ### Extensions
-Tweedie concurrent, pénalisation, sensibilité aux gros sinistres, chargements commerciaux explicites. Crédibilité seulement avec historique disponible ou données simulées identifiées ; le bonus-malus n’est pas un historique longitudinal complet.
+Tweedie concurrent, pénalisation, sensibilité aux gros sinistres, chargements commerciaux explicites. Prime bayésienne Poisson-Gamma et crédibilité sur les coûts intégrées au périmètre principal. Historique saisi explicitement ; le bonus-malus n’est pas un historique longitudinal complet.
 
 ### Critères de réussite
 Aucune exposition doublée ; pas de police partagée entre apprentissage et test ; prédictions positives ; résultats reproductibles ; comparaison hors échantillon publiée même si le modèle ne bat pas la référence. Distinguer prime pure et prime commerciale.
