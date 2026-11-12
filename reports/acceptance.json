@@ -1,0 +1,37 @@
+{
+  "status": "simulation_only",
+  "model_version": "fremtpl2-2026-11-v1",
+  "artifact_sha256": "46e228ed74d447ef0eb49cab1c238721503bd4dff3a1a0daa9ba192dd2dcec2d",
+  "checks": [
+    {
+      "name": "Exactitude contrats / montants",
+      "pass": true
+    },
+    {
+      "name": "Comptage test O/P entre 0,95 et 1,05",
+      "pass": true
+    },
+    {
+      "name": "Charge test O/P entre 0,90 et 1,10",
+      "pass": false
+    },
+    {
+      "name": "Déviance prime pure inférieure au tarif uniforme sur test",
+      "pass": true
+    },
+    {
+      "name": "Validation temporelle sur données récentes compagnie",
+      "pass": false
+    },
+    {
+      "name": "Validation de personnalisation sur historique longitudinal",
+      "pass": false
+    },
+    {
+      "name": "Validation frais / taxes / garanties / réassurance par la compagnie",
+      "pass": false
+    }
+  ],
+  "threshold_origin": "Seuils proposés de revue métier, définis comme contrôles de publication ; ils ne sont pas présentés comme préenregistrés avant observation du test.",
+  "test_reuse_policy": "Ne pas ajuster sur ce test. Toute nouvelle itération le traite comme référence de diagnostic déjà consultée et requiert un nouveau jeu externe pour approbation."
+}

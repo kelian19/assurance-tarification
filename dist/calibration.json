@@ -1,0 +1,656 @@
+{
+  "version": "fremtpl2-2026-11-v1",
+  "created_utc": "2026-11-12T14:00:37.636675+00:00",
+  "source": {
+    "repository": "https://github.com/dutangc/CASdatasets",
+    "commit": "227fb56b8734bdb7c0327a41180e01d2ddaeaf26",
+    "files": [
+      {
+        "name": "freMTPL2freq.rda",
+        "url": "https://raw.githubusercontent.com/dutangc/CASdatasets/227fb56b8734bdb7c0327a41180e01d2ddaeaf26/data/freMTPL2freq.rda",
+        "sha256": "82c8598513d9fa78226b6c7d271a9940eca4b8083e9e32320a75d377bdfe15a3",
+        "bytes": 9282770
+      },
+      {
+        "name": "freMTPL2sev.rda",
+        "url": "https://raw.githubusercontent.com/dutangc/CASdatasets/227fb56b8734bdb7c0327a41180e01d2ddaeaf26/data/freMTPL2sev.rda",
+        "sha256": "78e6e5016ae046603b37e88ff8ad8ca327f5d59f827c1f75d140388de09b14b3",
+        "bytes": 267650
+      }
+    ]
+  },
+  "data_audit": {
+    "raw_policies": 677991,
+    "raw_claims": 26444,
+    "count_amount_mismatches": 0,
+    "orphan_claims": 0,
+    "removed_invalid_policies": 0,
+    "exposure_above_one_preserved": 1224,
+    "claims_above_four_preserved": 8,
+    "maximum_claim": 4075400.56,
+    "policy_exposure_duplicated": false
+  },
+  "split": {
+    "method": "SHA256 contract ID, seed label clair-v1, 60/20/20",
+    "temporal_validation": false,
+    "refit_on_validation": false,
+    "test_used_for_selection": false
+  },
+  "frequency_candidates": [
+    {
+      "alpha": 0.0,
+      "validation_poisson_deviance": 0.4714791986851137,
+      "iterations": 5
+    },
+    {
+      "alpha": 0.0001,
+      "validation_poisson_deviance": 0.4715043035921072,
+      "iterations": 4
+    },
+    {
+      "alpha": 0.01,
+      "validation_poisson_deviance": 0.4754062585635524,
+      "iterations": 3
+    }
+  ],
+  "severity_candidates": [
+    {
+      "cap": null,
+      "alpha": 0.0,
+      "tail_per_claim": 0.0,
+      "balance_multiplier": 1.0325413408897774,
+      "validation_pure_tweedie_deviance_p15": 83.87819993507955,
+      "validation_gamma_deviance_target": 1.723378013403066,
+      "iterations": 5
+    },
+    {
+      "cap": null,
+      "alpha": 0.001,
+      "tail_per_claim": 0.0,
+      "balance_multiplier": 1.045189135817775,
+      "validation_pure_tweedie_deviance_p15": 83.85645234085722,
+      "validation_gamma_deviance_target": 1.7207838690444202,
+      "iterations": 5
+    },
+    {
+      "cap": null,
+      "alpha": 0.1,
+      "tail_per_claim": 0.0,
+      "balance_multiplier": 1.0563633833807506,
+      "validation_pure_tweedie_deviance_p15": 84.34740729683713,
+      "validation_gamma_deviance_target": 1.7565934028563668,
+      "iterations": 4
+    },
+    {
+      "cap": 100000.0,
+      "alpha": 0.0,
+      "tail_per_claim": 482.6035263058646,
+      "balance_multiplier": 1.0003046246500271,
+      "validation_pure_tweedie_deviance_p15": 84.00477166876908,
+      "validation_gamma_deviance_target": 1.4000504505201505,
+      "iterations": 4
+    },
+    {
+      "cap": 100000.0,
+      "alpha": 0.001,
+      "tail_per_claim": 482.6035263058646,
+      "balance_multiplier": 1.0018385262041865,
+      "validation_pure_tweedie_deviance_p15": 84.03523070361852,
+      "validation_gamma_deviance_target": 1.3984779820826265,
+      "iterations": 4
+    },
+    {
+      "cap": 100000.0,
+      "alpha": 0.1,
+      "tail_per_claim": 482.6035263058646,
+      "balance_multiplier": 1.0055110763721526,
+      "validation_pure_tweedie_deviance_p15": 84.5076140624305,
+      "validation_gamma_deviance_target": 1.3988951665436904,
+      "iterations": 3
+    }
+  ],
+  "selected_frequency": {
+    "alpha": 0.0,
+    "validation_poisson_deviance": 0.4714791986851137,
+    "iterations": 5
+  },
+  "selected_severity": {
+    "cap": null,
+    "alpha": 0.001,
+    "tail_per_claim": 0.0,
+    "balance_multiplier": 1.045189135817775,
+    "validation_pure_tweedie_deviance_p15": 83.85645234085722,
+    "validation_gamma_deviance_target": 1.7207838690444202,
+    "iterations": 5
+  },
+  "metrics": [
+    {
+      "sample": "train",
+      "policies": 407317,
+      "exposure": 215090.31588367396,
+      "claims": 15909,
+      "observed_cost": 37658526.91,
+      "predicted_cost": 37623024.11196531,
+      "observed_predicted_count": 0.9999999999981322,
+      "observed_predicted_cost": 1.000943645516879,
+      "frequency_poisson_deviance": 0.47213567267313955,
+      "frequency_baseline_deviance": 0.4803836184224804,
+      "pure_tweedie_deviance_p15": 82.55362199471361,
+      "pure_baseline_deviance_p15": 89.58243607829317
+    },
+    {
+      "sample": "validation",
+      "policies": 135471,
+      "exposure": 71808.1064870125,
+      "claims": 5302,
+      "observed_cost": 11919658.66,
+      "predicted_cost": 12596261.384726148,
+      "observed_predicted_count": 0.9967719749543307,
+      "observed_predicted_cost": 0.9462854331090195,
+      "frequency_poisson_deviance": 0.4714791986851137,
+      "frequency_baseline_deviance": 0.4788654845860771,
+      "pure_tweedie_deviance_p15": 83.85645234085722,
+      "pure_baseline_deviance_p15": 87.05312910967308
+    },
+    {
+      "sample": "test",
+      "policies": 135203,
+      "exposure": 71584.41309229733,
+      "claims": 5233,
+      "observed_cost": 10331030.93,
+      "predicted_cost": 12535407.626561608,
+      "observed_predicted_count": 0.9892276272391026,
+      "observed_predicted_cost": 0.8241479844747372,
+      "frequency_poisson_deviance": 0.4687106828683661,
+      "frequency_baseline_deviance": 0.47642928735987033,
+      "pure_tweedie_deviance_p15": 80.51126384431538,
+      "pure_baseline_deviance_p15": 80.845143953399
+    }
+  ],
+  "test_aggregate_cost_op_bootstrap95": [
+    0.726101775174371,
+    0.9279129151997944
+  ],
+  "test_aggregate_cost_op_bootstrap_replicates": 300,
+  "frailty": {
+    "r": 0.6984133066264666,
+    "optimizer_success": true,
+    "log_r_objective": 65762.31194588915,
+    "beta_definition": "r / annual frequency",
+    "longitudinal_validation": false
+  },
+  "credibility": {
+    "severity_second_moment_factor": 30.096450674869022,
+    "K_definition": "r * E[(Y / model_severity)^2] / annual frequency",
+    "status": "structural model assumption, not nonparametric longitudinal calibration"
+  },
+  "large_claim_sensitivity": [
+    {
+      "threshold": 50000,
+      "train_tail_per_claim": 592.0986372493558,
+      "train_claims_above": 55
+    },
+    {
+      "threshold": 100000,
+      "train_tail_per_claim": 482.6035263058646,
+      "train_claims_above": 24
+    },
+    {
+      "threshold": 250000,
+      "train_tail_per_claim": 355.8203494877114,
+      "train_claims_above": 7
+    }
+  ],
+  "segments_test": [
+    {
+      "feature": "DrivAgeBand",
+      "segment": "18-24",
+      "policies": 6067,
+      "exposure": 2493.240029193802,
+      "claims": 391.0,
+      "observed_cost": 753580.62,
+      "predicted_count": 407.7129985760789,
+      "predicted_cost": 2253224.089765501,
+      "count_op": 0.9590079329468317,
+      "cost_op": 0.33444548343987707
+    },
+    {
+      "feature": "DrivAgeBand",
+      "segment": "25-34",
+      "policies": 28119,
+      "exposure": 12807.961377348603,
+      "claims": 997.0,
+      "observed_cost": 2380523.3,
+      "predicted_count": 986.1379431187383,
+      "predicted_cost": 2122456.821292135,
+      "count_op": 1.0110147438875636,
+      "cost_op": 1.121588564779733
+    },
+    {
+      "feature": "DrivAgeBand",
+      "segment": "35-44",
+      "policies": 33989,
+      "exposure": 17451.311381839958,
+      "claims": 1200.0,
+      "observed_cost": 2237233.68,
+      "predicted_count": 1253.707789557361,
+      "predicted_cost": 2663197.2927353117,
+      "count_op": 0.9571608392284751,
+      "cost_op": 0.840055555066364
+    },
+    {
+      "feature": "DrivAgeBand",
+      "segment": "45-54",
+      "policies": 32567,
+      "exposure": 17934.760777004267,
+      "claims": 1339.0,
+      "observed_cost": 2534866.82,
+      "predicted_count": 1346.7270811846636,
+      "predicted_cost": 2721664.399548407,
+      "count_op": 0.9942623258322938,
+      "cost_op": 0.9313664169691892
+    },
+    {
+      "feature": "DrivAgeBand",
+      "segment": "55-64",
+      "policies": 19823,
+      "exposure": 11248.83962497193,
+      "claims": 735.0,
+      "observed_cost": 1529258.87,
+      "predicted_count": 716.0398485310205,
+      "predicted_cost": 1427362.9302880757,
+      "count_op": 1.0264791847938028,
+      "cost_op": 1.071387548008802
+    },
+    {
+      "feature": "DrivAgeBand",
+      "segment": "65-74",
+      "policies": 10191,
+      "exposure": 6491.2411774833445,
+      "claims": 366.0,
+      "observed_cost": 578635.33,
+      "predicted_count": 381.4905044117599,
+      "predicted_cost": 923213.3411197785,
+      "count_op": 0.9593947837950895,
+      "cost_op": 0.6267623140044369
+    },
+    {
+      "feature": "DrivAgeBand",
+      "segment": "75-100",
+      "policies": 4447,
+      "exposure": 3157.058724455423,
+      "claims": 205.0,
+      "observed_cost": 316932.31,
+      "predicted_count": 198.16953245729277,
+      "predicted_cost": 424288.7518124006,
+      "count_op": 1.0344677986469957,
+      "cost_op": 0.7469731607217618
+    },
+    {
+      "feature": "Area",
+      "segment": "A",
+      "policies": 20640,
+      "exposure": 12363.69284527285,
+      "claims": 689.0,
+      "observed_cost": 1189895.61,
+      "predicted_count": 662.4105229309532,
+      "predicted_cost": 1668986.0970626564,
+      "count_op": 1.0401404810892751,
+      "cost_op": 0.7129451899534485
+    },
+    {
+      "feature": "Area",
+      "segment": "B",
+      "policies": 15062,
+      "exposure": 8660.467228834494,
+      "claims": 512.0,
+      "observed_cost": 825165.36,
+      "predicted_count": 531.3968729171039,
+      "predicted_cost": 1613625.1267327613,
+      "count_op": 0.9634983307097297,
+      "cost_op": 0.5113736433137849
+    },
+    {
+      "feature": "Area",
+      "segment": "C",
+      "policies": 38180,
+      "exposure": 20784.1514267535,
+      "claims": 1365.0,
+      "observed_cost": 2571125.45,
+      "predicted_count": 1431.4741552542794,
+      "predicted_cost": 2841455.9861301323,
+      "count_op": 0.9535624481865191,
+      "cost_op": 0.9048619660309066
+    },
+    {
+      "feature": "Area",
+      "segment": "D",
+      "policies": 30414,
+      "exposure": 15459.407267759563,
+      "claims": 1273.0,
+      "observed_cost": 2826868.39,
+      "predicted_count": 1313.0624780119886,
+      "predicted_cost": 3338438.134356805,
+      "count_op": 0.9694892827395051,
+      "cost_op": 0.8467637488644474
+    },
+    {
+      "feature": "Area",
+      "segment": "E",
+      "policies": 27333,
+      "exposure": 12716.526102253163,
+      "claims": 1226.0,
+      "observed_cost": 2524271.06,
+      "predicted_count": 1207.6139547666344,
+      "predicted_cost": 2851455.201219788,
+      "count_op": 1.0152251016649758,
+      "cost_op": 0.8852571342941576
+    },
+    {
+      "feature": "Area",
+      "segment": "F",
+      "policies": 3574,
+      "exposure": 1600.1682214237592,
+      "claims": 168.0,
+      "observed_cost": 393705.06,
+      "predicted_count": 144.02771395595525,
+      "predicted_cost": 221447.08105946673,
+      "count_op": 1.1664421755064143,
+      "cost_op": 1.777874235760532
+    },
+    {
+      "feature": "Region",
+      "segment": "Alsace",
+      "policies": 463,
+      "exposure": 248.83641589939367,
+      "claims": 16.0,
+      "observed_cost": 36480.4,
+      "predicted_count": 21.355751230502204,
+      "predicted_cost": 45375.663785170094,
+      "count_op": 0.7492126981301113,
+      "cost_op": 0.8039639964875337
+    },
+    {
+      "feature": "Region",
+      "segment": "Aquitaine",
+      "policies": 6226,
+      "exposure": 2850.9203009207276,
+      "claims": 199.0,
+      "observed_cost": 378215.66000000003,
+      "predicted_count": 216.7096054071451,
+      "predicted_cost": 454244.75581558887,
+      "count_op": 0.9182795549192524,
+      "cost_op": 0.8326252645909366
+    },
+    {
+      "feature": "Region",
+      "segment": "Auvergne",
+      "policies": 1048,
+      "exposure": 459.9011729919904,
+      "claims": 27.0,
+      "observed_cost": 29196.43,
+      "predicted_count": 25.977529708947024,
+      "predicted_cost": 37354.52738114367,
+      "count_op": 1.0393597968131982,
+      "cost_op": 0.7816035176163993
+    },
+    {
+      "feature": "Region",
+      "segment": "Basse-Normandie",
+      "policies": 2151,
+      "exposure": 1317.9330758290291,
+      "claims": 83.0,
+      "observed_cost": 201093.42,
+      "predicted_count": 93.92908979213964,
+      "predicted_cost": 261199.24119262485,
+      "count_op": 0.8836453135410429,
+      "cost_op": 0.7698851615411126
+    },
+    {
+      "feature": "Region",
+      "segment": "Bourgogne",
+      "policies": 2053,
+      "exposure": 980.8213870798712,
+      "claims": 78.0,
+      "observed_cost": 150241.35,
+      "predicted_count": 65.56501177945992,
+      "predicted_cost": 103771.60858330176,
+      "count_op": 1.1896589031718239,
+      "cost_op": 1.4478078546830568
+    },
+    {
+      "feature": "Region",
+      "segment": "Bretagne",
+      "policies": 8450,
+      "exposure": 5560.587109813609,
+      "claims": 355.0,
+      "observed_cost": 644579.94,
+      "predicted_count": 380.5461411058841,
+      "predicted_cost": 873289.166566646,
+      "count_op": 0.9328697933142986,
+      "cost_op": 0.7381059615501462
+    },
+    {
+      "feature": "Region",
+      "segment": "Centre",
+      "policies": 32145,
+      "exposure": 20653.06721760611,
+      "claims": 1257.0,
+      "observed_cost": 2358273.82,
+      "predicted_count": 1309.131432672791,
+      "predicted_cost": 3576047.568703051,
+      "count_op": 0.960178610510973,
+      "cost_op": 0.6594637724171244
+    },
+    {
+      "feature": "Region",
+      "segment": "Champagne-Ardenne",
+      "policies": 626,
+      "exposure": 246.71917808219177,
+      "claims": 13.0,
+      "observed_cost": 14586.06,
+      "predicted_count": 15.959762419768534,
+      "predicted_cost": 116573.57060369157,
+      "count_op": 0.8145484662038309,
+      "cost_op": 0.1251232155321671
+    },
+    {
+      "feature": "Region",
+      "segment": "Corse",
+      "policies": 846,
+      "exposure": 316.5529687850887,
+      "claims": 27.0,
+      "observed_cost": 253101.52,
+      "predicted_count": 23.643690322281437,
+      "predicted_cost": 54277.50336279775,
+      "count_op": 1.1419537150068164,
+      "cost_op": 4.663101733110994
+    },
+    {
+      "feature": "Region",
+      "segment": "Franche-Comte",
+      "policies": 255,
+      "exposure": 115.86641589939367,
+      "claims": 5.0,
+      "observed_cost": 7399.04,
+      "predicted_count": 8.843361496926041,
+      "predicted_cost": 23349.879471164557,
+      "count_op": 0.5653958623921462,
+      "cost_op": 0.3168770103990168
+    },
+    {
+      "feature": "Region",
+      "segment": "Haute-Normandie",
+      "policies": 1726,
+      "exposure": 630.5466000449136,
+      "claims": 46.0,
+      "observed_cost": 55015.95,
+      "predicted_count": 46.70072565462372,
+      "predicted_cost": 84676.62699167915,
+      "count_op": 0.984995401146313,
+      "cost_op": 0.6497182511226647
+    },
+    {
+      "feature": "Region",
+      "segment": "Ile-de-France",
+      "policies": 13820,
+      "exposure": 5969.981622875964,
+      "claims": 528.0,
+      "observed_cost": 999664.84,
+      "predicted_count": 504.1758282905584,
+      "predicted_cost": 982536.4825540218,
+      "count_op": 1.0472536967712613,
+      "cost_op": 1.017432795372091
+    },
+    {
+      "feature": "Region",
+      "segment": "Languedoc-Roussillon",
+      "policies": 7180,
+      "exposure": 2945.0311153529456,
+      "claims": 194.0,
+      "observed_cost": 343971.62,
+      "predicted_count": 222.63195668974365,
+      "predicted_cost": 520563.3837663153,
+      "count_op": 0.8713933205481157,
+      "cost_op": 0.6607679885422202
+    },
+    {
+      "feature": "Region",
+      "segment": "Limousin",
+      "policies": 886,
+      "exposure": 473.3983187364324,
+      "claims": 44.0,
+      "observed_cost": 90057.25,
+      "predicted_count": 35.81435052549963,
+      "predicted_cost": 60696.32212050471,
+      "count_op": 1.2285578086547244,
+      "cost_op": 1.4837348764098583
+    },
+    {
+      "feature": "Region",
+      "segment": "Lorraine",
+      "policies": 2645,
+      "exposure": 1659.3939351747886,
+      "claims": 93.0,
+      "observed_cost": 183799.61000000002,
+      "predicted_count": 92.949401403639,
+      "predicted_cost": 249022.69815093657,
+      "count_op": 1.0005443671029282,
+      "cost_op": 0.7380837625034332
+    },
+    {
+      "feature": "Region",
+      "segment": "Midi-Pyrenees",
+      "policies": 3504,
+      "exposure": 1436.508776854555,
+      "claims": 82.0,
+      "observed_cost": 111671.69,
+      "predicted_count": 76.53591062794557,
+      "predicted_cost": 138104.2108425619,
+      "count_op": 1.0713924918018722,
+      "cost_op": 0.8086045263841025
+    },
+    {
+      "feature": "Region",
+      "segment": "Nord-Pas-de-Calais",
+      "policies": 5482,
+      "exposure": 2316.244928512613,
+      "claims": 191.0,
+      "observed_cost": 314178.54,
+      "predicted_count": 186.77672182002726,
+      "predicted_cost": 375153.5825136809,
+      "count_op": 1.0226113732954483,
+      "cost_op": 0.8374664527921513
+    },
+    {
+      "feature": "Region",
+      "segment": "Pays-de-la-Loire",
+      "policies": 7742,
+      "exposure": 4364.85869675874,
+      "claims": 300.0,
+      "observed_cost": 575870.59,
+      "predicted_count": 311.9540308085376,
+      "predicted_cost": 563742.5649175651,
+      "count_op": 0.9616801527534216,
+      "cost_op": 1.0215134102641483
+    },
+    {
+      "feature": "Region",
+      "segment": "Picardie",
+      "policies": 1596,
+      "exposure": 710.6530683434389,
+      "claims": 61.0,
+      "observed_cost": 111174.29,
+      "predicted_count": 64.36861181932252,
+      "predicted_cost": 189983.31220129898,
+      "count_op": 0.9476668561879515,
+      "cost_op": 0.5851792387017867
+    },
+    {
+      "feature": "Region",
+      "segment": "Poitou-Charentes",
+      "policies": 3805,
+      "exposure": 2261.4825226439107,
+      "claims": 167.0,
+      "observed_cost": 207084.06,
+      "predicted_count": 158.20282246325112,
+      "predicted_cost": 291725.19900763966,
+      "count_op": 1.0556069569415703,
+      "cost_op": 0.7098600350756018
+    },
+    {
+      "feature": "Region",
+      "segment": "Provence-Alpes-Cotes-D'Azur",
+      "policies": 15637,
+      "exposure": 6993.246940639269,
+      "claims": 600.0,
+      "observed_cost": 1131925.53,
+      "predicted_count": 579.0095513432138,
+      "predicted_cost": 1374773.0521245343,
+      "count_op": 1.0362523357483335,
+      "cost_op": 0.8233544643974183
+    },
+    {
+      "feature": "Region",
+      "segment": "Rhone-Alpes",
+      "policies": 16917,
+      "exposure": 9071.861323452355,
+      "claims": 867.0,
+      "observed_cost": 2133449.32,
+      "predicted_count": 849.2044104547075,
+      "predicted_cost": 2158946.7059056913,
+      "count_op": 1.0209556018859627,
+      "cost_op": 0.9881898956394132
+    }
+  ],
+  "baseline": {
+    "annual_frequency": 0.07396427837599147,
+    "mean_claim": 2367.1209321767556
+  },
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scikit_learn": "1.8.0",
+    "scipy": "1.17.0",
+    "pyreadr": "0.5.9"
+  },
+  "production_gaps": [
+    "Recent company portfolio, inflation and guarantee definitions",
+    "Claims maturity / ultimate amounts and reinsurance",
+    "Longitudinal history validation for Bayesian and credibility methods",
+    "Company expenses, taxes and profit/capital objectives",
+    "Independent actuarial review, monitoring and deployment controls"
+  ],
+  "dispersion_diagnostics": {
+    "sample": "train",
+    "poisson_pearson_phi": 1.7644154774507748,
+    "nb2_pearson_residual_ratio": 1.7082553266091065,
+    "gamma_shape_mle": 0.7602513694017204,
+    "gamma_phi_mle": 1.3153544212448438,
+    "gamma_empirical_relative_second_moment": 30.096450674868958,
+    "train_largest_claim_cost_share": 0.10821986132754972,
+    "train_top10_claims_cost_share": 0.2141231312438503,
+    "interpretation": "Gamma likelihood shape and empirical second moment are distinct diagnostics; large discrepancy exposes heavy-tail risk. NB2 is a frailty approximation, not validated persistence."
+  }
+}

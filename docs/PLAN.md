@@ -114,3 +114,9 @@ Angle : « Une provision est une estimation : rendre son incertitude visible ».
 Dépendances proposées : pandas, numpy, scipy, statsmodels, scikit-learn, chainladder, plotly, streamlit, pytest ; vérifier API et versions au développement. Référence R : glm/glmnet, ChainLadder, testthat, renv.
 
 Livrables par dépôt : code modulaire, acquisition des données, analyse reproductible, tests actuariels, application, README, sources/hypothèses, captures et brouillon LinkedIn. Aucun déploiement ni publication LinkedIn à ce stade.
+
+## Mise à jour — calibration réalisée
+
+Le cadrage ci-dessus est conservé comme référence initiale. Le README et reports/MODEL_CARD.md décrivent désormais l’état réalisé : 677 991 contrats audités, GLM entraînés, test indépendant et coefficients intégrés au calculateur. La prime bayésienne et la crédibilité structurelle sont dans le périmètre principal.
+
+Les profils illustratifs sont remplacés par une saisie de caractéristiques et un moteur versionné. Beta est estimé via un mélange Poisson-Gamma. K est dérivé structurellement des moments de coûts ; il ne constitue pas une estimation non paramétrique sur un panel. Le test expose un défaut de niveau de charge : la version reste en simulation, sans validation commerciale. La séparation temporelle et la validation sur plusieurs années demeurent impossibles avec les seules données disponibles.

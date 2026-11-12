@@ -1,0 +1,206 @@
+{
+  "version": "fremtpl2-2026-11-v1",
+  "data_commit": "227fb56b8734bdb7c0327a41180e01d2ddaeaf26",
+  "currency_basis": "EUR historiques, environ 2011–2013 ; aucun redressement économique appliqué",
+  "source": "CASdatasets / freMTPL2",
+  "bins": {
+    "DrivAge": [
+      18,
+      25,
+      35,
+      45,
+      55,
+      65,
+      75,
+      101
+    ],
+    "VehAge": [
+      0,
+      2,
+      5,
+      10,
+      15,
+      101
+    ],
+    "VehPower": [
+      4,
+      6,
+      8,
+      10,
+      16
+    ]
+  },
+  "features": [
+    "DrivAgeBand",
+    "VehAgeBand",
+    "VehPowerBand",
+    "VehGas",
+    "Area",
+    "Region"
+  ],
+  "frequency": {
+    "intercept": -1.945024281521394,
+    "coefficients": {
+      "DrivAgeBand": {
+        "18-24": 0.0,
+        "25-34": -0.7947072029445129,
+        "35-44": -0.8572380039222076,
+        "45-54": -0.7962727276136768,
+        "55-64": -0.9637930272173446,
+        "65-74": -0.9954327240808037,
+        "75-100": -0.884387080402636
+      },
+      "VehAgeBand": {
+        "0-1": 0.0,
+        "10-14": 0.11260260256353091,
+        "15-100": -0.0958829707932207,
+        "2-4": 0.09526026599524627,
+        "5-9": 0.18820422532533185
+      },
+      "VehPowerBand": {
+        "10-15": 0.0,
+        "4-5": -0.12369494537107927,
+        "6-7": -0.08475091192755153,
+        "8-9": -0.035254601850988394
+      },
+      "VehGas": {
+        "Diesel": 0.0,
+        "Regular": -0.18589501135502814
+      },
+      "Area": {
+        "A": 0.0,
+        "B": 0.12100263011996143,
+        "C": 0.23314322916521815,
+        "D": 0.43668038294275247,
+        "E": 0.538325718249178,
+        "F": 0.5790669944963629
+      },
+      "Region": {
+        "Alsace": 0.0,
+        "Aquitaine": -0.032445196113833716,
+        "Auvergne": -0.2495679627930444,
+        "Basse-Normandie": -0.10747073488765226,
+        "Bourgogne": -0.07958727428790768,
+        "Bretagne": -0.11910988148863029,
+        "Centre": -0.11434142708408428,
+        "Champagne-Ardenne": -0.13106369365861362,
+        "Corse": 0.026653704292765753,
+        "Franche-Comte": -0.10022342693594034,
+        "Haute-Normandie": -0.07202729218981267,
+        "Ile-de-France": -0.08621206919715023,
+        "Languedoc-Roussillon": -0.027262213855249684,
+        "Limousin": 0.12367539536470591,
+        "Lorraine": -0.35442742214999484,
+        "Midi-Pyrenees": -0.36866615011492637,
+        "Nord-Pas-de-Calais": -0.09682620388618693,
+        "Pays-de-la-Loire": -0.10738757033302218,
+        "Picardie": 0.07076773645966315,
+        "Poitou-Charentes": -0.06984324946460933,
+        "Provence-Alpes-Cotes-D'Azur": -0.017986108855004436,
+        "Rhone-Alpes": 0.10645475820209184
+      }
+    }
+  },
+  "severity": {
+    "intercept": 8.71557213855417,
+    "coefficients": {
+      "DrivAgeBand": {
+        "18-24": 0.0,
+        "25-34": -0.9614963258847598,
+        "35-44": -0.9894113495524741,
+        "45-54": -1.035498898253356,
+        "55-64": -1.0589639400098874,
+        "65-74": -0.8627291041864213,
+        "75-100": -0.9559586531793318
+      },
+      "VehAgeBand": {
+        "0-1": 0.0,
+        "10-14": -0.027601702091483736,
+        "15-100": -0.22703850270225698,
+        "2-4": -0.04439453566272932,
+        "5-9": -0.06219854310407592
+      },
+      "VehPowerBand": {
+        "10-15": 0.0,
+        "4-5": -0.25707483120304625,
+        "6-7": -0.05832124598992875,
+        "8-9": 0.09157392741002623
+      },
+      "VehGas": {
+        "Diesel": 0.0,
+        "Regular": -0.016958654412017552
+      },
+      "Area": {
+        "A": 0.0,
+        "B": 0.20893398964989718,
+        "C": -0.21669967795748146,
+        "D": 0.026166766735314945,
+        "E": -0.007529035907116394,
+        "F": -0.3075098500790601
+      },
+      "Region": {
+        "Alsace": 0.0,
+        "Aquitaine": 0.003107722253561782,
+        "Auvergne": -0.37801724648445534,
+        "Basse-Normandie": 0.22686582853906143,
+        "Bourgogne": -0.2843123122189602,
+        "Bretagne": 0.12162464014510883,
+        "Centre": 0.23777374239732046,
+        "Champagne-Ardenne": 1.1809146565692357,
+        "Corse": 0.05377970081432553,
+        "Franche-Comte": 0.04459306845576185,
+        "Haute-Normandie": -0.15603689753052505,
+        "Ile-de-France": -0.005323052784048954,
+        "Languedoc-Roussillon": 0.14575165646756802,
+        "Limousin": -0.13991630178385436,
+        "Lorraine": 0.26583567776347,
+        "Midi-Pyrenees": -0.12307391714042021,
+        "Nord-Pas-de-Calais": -0.08097870860002923,
+        "Pays-de-la-Loire": -0.1588490874917003,
+        "Picardie": 0.22517169447475963,
+        "Poitou-Charentes": -0.16611066381164588,
+        "Provence-Alpes-Cotes-D'Azur": 0.1401677633757757,
+        "Rhone-Alpes": 0.20363046851650196
+      }
+    }
+  },
+  "severity_tail": 0.0,
+  "frailty_shape_r": 0.6984133066264666,
+  "severity_second_moment_factor": 30.096450674869022,
+  "credibility_status": "structural_compound_poisson_gamma_not_longitudinal",
+  "limits": {
+    "DrivAge": [
+      18,
+      100
+    ],
+    "VehAge": [
+      0,
+      100
+    ],
+    "VehPower": [
+      4,
+      15
+    ]
+  },
+  "excluded_features": [
+    "BonusMalus",
+    "IDpol"
+  ],
+  "trained_policies": 407317,
+  "test_policies": 135203,
+  "selected_frequency": {
+    "alpha": 0.0,
+    "validation_poisson_deviance": 0.4714791986851137,
+    "iterations": 5
+  },
+  "selected_severity": {
+    "cap": null,
+    "alpha": 0.001,
+    "tail_per_claim": 0.0,
+    "balance_multiplier": 1.045189135817775,
+    "validation_pure_tweedie_deviance_p15": 83.85645234085722,
+    "validation_gamma_deviance_target": 1.7207838690444202,
+    "iterations": 5
+  },
+  "release_status": "calibrated_research_not_production"
+}

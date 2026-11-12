@@ -1,8 +1,3 @@
-export const profiles = {
- standard: {label:'Conducteur expérimenté', frequency:0.08, severity:2500},
- young: {label:'Jeune conducteur', frequency:0.15, severity:2800},
- urban: {label:'Conducteur en zone urbaine', frequency:0.11, severity:2600}
-};
 function finite(v, name, min=0) { if(typeof v !== 'number'||!Number.isFinite(v)||v<min) throw new Error(`${name} : valeur invalide.`); }
 export function calculate({frequency,severity,beta=4,k=4,history=[],method='bayes',coverage=1,fixedFee=0,expenseRate=0,marginRate=0}) {
  finite(frequency,'Fréquence',Number.MIN_VALUE); finite(severity,'Coût moyen',Number.MIN_VALUE);

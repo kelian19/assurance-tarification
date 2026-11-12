@@ -1,0 +1,458 @@
+[
+  {
+    "profile": {
+      "DrivAge": 18,
+      "VehAge": 7,
+      "VehPower": 6,
+      "VehGas": "Diesel",
+      "Area": "A",
+      "Region": "Centre"
+    },
+    "prediction": {
+      "frequency": 0.14143537284983865,
+      "severity": 6855.634115875006,
+      "beta": 4.938038430937423,
+      "k": 148.61743006731578,
+      "prior": 969.6291673008553,
+      "version": "fremtpl2-2026-11-v1",
+      "cost_index": 1.0
+    }
+  },
+  {
+    "profile": {
+      "DrivAge": 18,
+      "VehAge": 7,
+      "VehPower": 6,
+      "VehGas": "Diesel",
+      "Area": "F",
+      "Region": "Centre"
+    },
+    "prediction": {
+      "frequency": 0.25237343569318793,
+      "severity": 5040.780659246552,
+      "beta": 2.767380428562744,
+      "k": 83.28832856683653,
+      "prior": 1272.1591335498251,
+      "version": "fremtpl2-2026-11-v1",
+      "cost_index": 1.0
+    }
+  },
+  {
+    "profile": {
+      "DrivAge": 18,
+      "VehAge": 7,
+      "VehPower": 6,
+      "VehGas": "Regular",
+      "Area": "A",
+      "Region": "Centre"
+    },
+    "prediction": {
+      "frequency": 0.11744238494326455,
+      "severity": 6740.352063248319,
+      "beta": 5.946859023374435,
+      "k": 178.97934926738844,
+      "prior": 791.6030216651365,
+      "version": "fremtpl2-2026-11-v1",
+      "cost_index": 1.0
+    }
+  },
+  {
+    "profile": {
+      "DrivAge": 18,
+      "VehAge": 7,
+      "VehPower": 6,
+      "VehGas": "Regular",
+      "Area": "F",
+      "Region": "Centre"
+    },
+    "prediction": {
+      "frequency": 0.2095610001014496,
+      "severity": 4956.016575951431,
+      "beta": 3.3327446723787393,
+      "k": 100.30378564417924,
+      "prior": 1038.5877901757437,
+      "version": "fremtpl2-2026-11-v1",
+      "cost_index": 1.0
+    }
+  },
+  {
+    "profile": {
+      "DrivAge": 24,
+      "VehAge": 7,
+      "VehPower": 6,
+      "VehGas": "Diesel",
+      "Area": "A",
+      "Region": "Centre"
+    },
+    "prediction": {
+      "frequency": 0.14143537284983865,
+      "severity": 6855.634115875006,
+      "beta": 4.938038430937423,
+      "k": 148.61743006731578,
+      "prior": 969.6291673008553,
+      "version": "fremtpl2-2026-11-v1",
+      "cost_index": 1.0
+    }
+  },
+  {
+    "profile": {
+      "DrivAge": 24,
+      "VehAge": 7,
+      "VehPower": 6,
+      "VehGas": "Diesel",
+      "Area": "F",
+      "Region": "Centre"
+    },
+    "prediction": {
+      "frequency": 0.25237343569318793,
+      "severity": 5040.780659246552,
+      "beta": 2.767380428562744,
+      "k": 83.28832856683653,
+      "prior": 1272.1591335498251,
+      "version": "fremtpl2-2026-11-v1",
+      "cost_index": 1.0
+    }
+  },
+  {
+    "profile": {
+      "DrivAge": 24,
+      "VehAge": 7,
+      "VehPower": 6,
+      "VehGas": "Regular",
+      "Area": "A",
+      "Region": "Centre"
+    },
+    "prediction": {
+      "frequency": 0.11744238494326455,
+      "severity": 6740.352063248319,
+      "beta": 5.946859023374435,
+      "k": 178.97934926738844,
+      "prior": 791.6030216651365,
+      "version": "fremtpl2-2026-11-v1",
+      "cost_index": 1.0
+    }
+  },
+  {
+    "profile": {
+      "DrivAge": 24,
+      "VehAge": 7,
+      "VehPower": 6,
+      "VehGas": "Regular",
+      "Area": "F",
+      "Region": "Centre"
+    },
+    "prediction": {
+      "frequency": 0.2095610001014496,
+      "severity": 4956.016575951431,
+      "beta": 3.3327446723787393,
+      "k": 100.30378564417924,
+      "prior": 1038.5877901757437,
+      "version": "fremtpl2-2026-11-v1",
+      "cost_index": 1.0
+    }
+  },
+  {
+    "profile": {
+      "DrivAge": 25,
+      "VehAge": 7,
+      "VehPower": 6,
+      "VehGas": "Diesel",
+      "Area": "A",
+      "Region": "Centre"
+    },
+    "prediction": {
+      "frequency": 0.06388826389050788,
+      "severity": 2621.048653155432,
+      "beta": 10.93179347968215,
+      "k": 329.00818324910864,
+      "prior": 167.4542480226545,
+      "version": "fremtpl2-2026-11-v1",
+      "cost_index": 1.0
+    }
+  },
+  {
+    "profile": {
+      "DrivAge": 25,
+      "VehAge": 7,
+      "VehPower": 6,
+      "VehGas": "Diesel",
+      "Area": "F",
+      "Region": "Centre"
+    },
+    "prediction": {
+      "frequency": 0.11400048187124287,
+      "severity": 1927.1931865756828,
+      "beta": 6.126406618309606,
+      "k": 184.3830946021462,
+      "prior": 219.7009519286039,
+      "version": "fremtpl2-2026-11-v1",
+      "cost_index": 1.0
+    }
+  },
+  {
+    "profile": {
+      "DrivAge": 25,
+      "VehAge": 7,
+      "VehPower": 6,
+      "VehGas": "Regular",
+      "Area": "A",
+      "Region": "Centre"
+    },
+    "prediction": {
+      "frequency": 0.05305030792510441,
+      "severity": 2576.9739747722197,
+      "beta": 13.165113152829868,
+      "k": 396.22317863321354,
+      "prior": 136.70926287664648,
+      "version": "fremtpl2-2026-11-v1",
+      "cost_index": 1.0
+    }
+  },
+  {
+    "profile": {
+      "DrivAge": 25,
+      "VehAge": 7,
+      "VehPower": 6,
+      "VehGas": "Regular",
+      "Area": "F",
+      "Region": "Centre"
+    },
+    "prediction": {
+      "frequency": 0.09466152777675117,
+      "severity": 1894.786149881271,
+      "beta": 7.378005859715235,
+      "k": 222.0517894358142,
+      "prior": 179.36335175798936,
+      "version": "fremtpl2-2026-11-v1",
+      "cost_index": 1.0
+    }
+  },
+  {
+    "profile": {
+      "DrivAge": 44,
+      "VehAge": 7,
+      "VehPower": 6,
+      "VehGas": "Diesel",
+      "Area": "A",
+      "Region": "Centre"
+    },
+    "prediction": {
+      "frequency": 0.060015621090942335,
+      "severity": 2548.893805592913,
+      "beta": 11.637192016527717,
+      "k": 350.238175519406,
+      "prior": 152.9734448375143,
+      "version": "fremtpl2-2026-11-v1",
+      "cost_index": 1.0
+    }
+  },
+  {
+    "profile": {
+      "DrivAge": 44,
+      "VehAge": 7,
+      "VehPower": 6,
+      "VehGas": "Diesel",
+      "Area": "F",
+      "Region": "Centre"
+    },
+    "prediction": {
+      "frequency": 0.10709024330188235,
+      "severity": 1874.1394859381585,
+      "beta": 6.521726770735523,
+      "k": 196.2808280704145,
+      "prior": 200.7020535307821,
+      "version": "fremtpl2-2026-11-v1",
+      "cost_index": 1.0
+    }
+  },
+  {
+    "profile": {
+      "DrivAge": 44,
+      "VehAge": 7,
+      "VehPower": 6,
+      "VehGas": "Regular",
+      "Area": "A",
+      "Region": "Centre"
+    },
+    "prediction": {
+      "frequency": 0.04983461727254601,
+      "severity": 2506.0324590172854,
+      "beta": 14.014621659615392,
+      "k": 421.79036950556565,
+      "prior": 124.88716846770376,
+      "version": "fremtpl2-2026-11-v1",
+      "cost_index": 1.0
+    }
+  },
+  {
+    "profile": {
+      "DrivAge": 44,
+      "VehAge": 7,
+      "VehPower": 6,
+      "VehGas": "Regular",
+      "Area": "F",
+      "Region": "Centre"
+    },
+    "prediction": {
+      "frequency": 0.08892353676530694,
+      "severity": 1842.62458254689,
+      "beta": 7.854088265402293,
+      "k": 236.38018007574772,
+      "prior": 163.85269481076674,
+      "version": "fremtpl2-2026-11-v1",
+      "cost_index": 1.0
+    }
+  },
+  {
+    "profile": {
+      "DrivAge": 65,
+      "VehAge": 7,
+      "VehPower": 6,
+      "VehGas": "Diesel",
+      "Area": "A",
+      "Region": "Centre"
+    },
+    "prediction": {
+      "frequency": 0.052269350129499376,
+      "severity": 2893.1379493253035,
+      "beta": 13.36181346996127,
+      "k": 402.14316002548986,
+      "prior": 151.2224404462261,
+      "version": "fremtpl2-2026-11-v1",
+      "cost_index": 1.0
+    }
+  },
+  {
+    "profile": {
+      "DrivAge": 65,
+      "VehAge": 7,
+      "VehPower": 6,
+      "VehGas": "Diesel",
+      "Area": "F",
+      "Region": "Centre"
+    },
+    "prediction": {
+      "frequency": 0.09326800790943,
+      "severity": 2127.2538138698274,
+      "beta": 7.488240847865825,
+      "k": 225.36947131933317,
+      "prior": 198.4047255373762,
+      "version": "fremtpl2-2026-11-v1",
+      "cost_index": 1.0
+    }
+  },
+  {
+    "profile": {
+      "DrivAge": 65,
+      "VehAge": 7,
+      "VehPower": 6,
+      "VehGas": "Regular",
+      "Area": "A",
+      "Region": "Centre"
+    },
+    "prediction": {
+      "frequency": 0.04340241776122233,
+      "severity": 2844.4879082506104,
+      "beta": 16.091576060780202,
+      "k": 484.2993251941745,
+      "prior": 123.45765251063844,
+      "version": "fremtpl2-2026-11-v1",
+      "cost_index": 1.0
+    }
+  },
+  {
+    "profile": {
+      "DrivAge": 65,
+      "VehAge": 7,
+      "VehPower": 6,
+      "VehGas": "Regular",
+      "Area": "F",
+      "Region": "Centre"
+    },
+    "prediction": {
+      "frequency": 0.07744609475749842,
+      "severity": 2091.4826245128856,
+      "beta": 9.0180571249378,
+      "k": 271.4115114438416,
+      "prior": 161.9771615216864,
+      "version": "fremtpl2-2026-11-v1",
+      "cost_index": 1.0
+    }
+  },
+  {
+    "profile": {
+      "DrivAge": 100,
+      "VehAge": 7,
+      "VehPower": 6,
+      "VehGas": "Diesel",
+      "Area": "A",
+      "Region": "Centre"
+    },
+    "prediction": {
+      "frequency": 0.05840817152223706,
+      "severity": 2635.6034253294306,
+      "beta": 11.957458835371483,
+      "k": 359.87707003553464,
+      "prior": 153.9407769312369,
+      "version": "fremtpl2-2026-11-v1",
+      "cost_index": 1.0
+    }
+  },
+  {
+    "profile": {
+      "DrivAge": 100,
+      "VehAge": 7,
+      "VehPower": 6,
+      "VehGas": "Diesel",
+      "Area": "F",
+      "Region": "Centre"
+    },
+    "prediction": {
+      "frequency": 0.10422195397522019,
+      "severity": 1937.8949557824933,
+      "beta": 6.701211021168548,
+      "k": 201.68266696048786,
+      "prior": 201.97119889037438,
+      "version": "fremtpl2-2026-11-v1",
+      "cost_index": 1.0
+    }
+  },
+  {
+    "profile": {
+      "DrivAge": 100,
+      "VehAge": 7,
+      "VehPower": 6,
+      "VehGas": "Regular",
+      "Area": "A",
+      "Region": "Centre"
+    },
+    "prediction": {
+      "frequency": 0.04849985421277596,
+      "severity": 2591.2839987605084,
+      "beta": 14.400317649666022,
+      "k": 433.3984498456192,
+      "prior": 125.67689616378378,
+      "version": "fremtpl2-2026-11-v1",
+      "cost_index": 1.0
+    }
+  },
+  {
+    "profile": {
+      "DrivAge": 100,
+      "VehAge": 7,
+      "VehPower": 6,
+      "VehGas": "Regular",
+      "Area": "F",
+      "Region": "Centre"
+    },
+    "prediction": {
+      "frequency": 0.08654182183471347,
+      "severity": 1905.3079617128708,
+      "beta": 8.070240397300264,
+      "k": 242.88559205168278,
+      "prior": 164.88882216281633,
+      "version": "fremtpl2-2026-11-v1",
+      "cost_index": 1.0
+    }
+  }
+]
