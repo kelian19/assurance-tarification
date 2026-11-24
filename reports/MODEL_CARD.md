@@ -34,6 +34,20 @@ Variables : âge du conducteur et du véhicule par tranches, puissance fiscale p
 
 Le gain de déviance de prime pure sur test est de 0.41 %. Ce faible gain de classement/ajustement ne compense pas le défaut de niveau agrégé. Les résultats par segment, y compris les mauvais résultats, sont dans test_segments.csv.
 
+## Pourquoi la charge test est surestimée
+Le bootstrap ci-dessus ne rééchantillonne que le test : il traite le niveau prédit comme connu. Or ce niveau est appris sur train, où le plus gros sinistre (4,075,401 EUR) pèse 10.8 % de la charge et les dix plus gros 21.4 %. Le recalage multiplicatif équilibre le modèle sur train : ce sinistre relève le niveau prédit de toutes les polices.
+
+| Diagnostic (agrégats versionnés, sans réajustement) | Validation | Test |
+|---|---:|---:|
+| O/P charge publié | 0.9463 | 0.8241 |
+| O/P charge si le plus gros sinistre de train n'avait pas été tiré (niveau × 0.8918) | 1.0611 | 0.9241 |
+
+Ce seul sinistre explique plus de la moitié de l'écart de test ; sans lui, la validation passerait en sous-estimation : le niveau « vrai » se situe entre les deux.
+
+Incertitude du niveau appris : erreur-type relative de la sévérité moyenne de train 4.3 % (√((q − 1)/n), q = 30.1), de la fréquence 1.1 %. Combinée à l'échantillonnage du test, l'intervalle à 95 % du ratio de charge devient [0.7094 ; 0.9575] au lieu de [0.7261 ; 0.9279] (approximation normale en log, ordre de grandeur avec une queue aussi lourde). Il reste sous 1 : une part de la surestimation n'est pas du bruit d'échantillonnage.
+
+Correction à évaluer, qui exige les données et un nouvel échantillon indépendant : estimer la charge des gros sinistres par un modèle de queue (loi de Pareto généralisée au-delà d'un seuil) plutôt que par l'excédent réalisé sur train. Détail : level_diagnostic.json.
+
 ## Diagnostics de dispersion
 Sur train, la dispersion de Pearson du Poisson vaut 1.7644. Le ratio résiduel rapporté à la variance NB2 vaut 1.7083, donc le mélange NB2 ne résout pas toute la surdispersion.
 

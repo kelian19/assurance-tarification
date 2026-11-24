@@ -1,0 +1,35 @@
+{
+  "largest_claim_sensitivity": {
+    "largest_train_claim": 4075400.56,
+    "largest_share_of_train_cost": 0.10821986132754972,
+    "top10_share_of_train_cost": 0.2141231312438503,
+    "level_factor_without_largest": 0.8918361972680418,
+    "validation_cost_op_without_largest": 1.0610529556972141,
+    "test_cost_op_without_largest": 0.9241024158913335
+  },
+  "level_uncertainty": {
+    "relative_se_train_severity_mean": 0.0427659935899519,
+    "relative_se_train_frequency": 0.010531227349095234,
+    "relative_se_train_level": 0.04404358020431739,
+    "log_se_test_sampling_from_bootstrap": 0.06256433734179542,
+    "log_se_combined": 0.07651230792645139,
+    "test_cost_op": 0.8241479844747372,
+    "test_only_interval95": [
+      0.726101775174371,
+      0.9279129151997944
+    ],
+    "combined_interval95": [
+      0.7093781482232453,
+      0.9574863590244359
+    ],
+    "z_score": -2.5277655011307436,
+    "p_value_two_sided_normal": 0.011479099425345222
+  },
+  "reading": [
+    "Le test seul ne mesure pas l’incertitude du niveau appris : celle-ci vient de quelques gros sinistres de train.",
+    "Sans le plus gros sinistre de train, le niveau prédit baisserait d’environ 11 % : il explique à lui seul plus de la moitié de l’écart test, et la validation passerait en sous-estimation : le vrai niveau est entre les deux.",
+    "Même en ajoutant l’incertitude du niveau appris, l’intervalle reste sous 1 : une part de la surestimation n’est pas du bruit.",
+    "Correction à évaluer (exige les données et un nouvel échantillon indépendant) : charge des gros sinistres estimée par un modèle de queue (GPD) plutôt que par l’excédent réalisé sur train."
+  ],
+  "method": "Agrégats versionnés de reports/calibration.json ; aucun réajustement, aucune nouvelle lecture du test ; approximation normale en log."
+}

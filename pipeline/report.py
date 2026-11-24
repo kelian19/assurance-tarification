@@ -3,9 +3,10 @@ import hashlib,json,sys,shutil
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from python.model import predict
+from pipeline.level_diagnostic import level_diagnostic
 
 def main():
- report=json.loads((ROOT/'reports/calibration.json').read_text());model=json.loads((ROOT/'artifacts/model.json').read_text())
+ report=json.loads((ROOT/'reports/calibration.json').read_text(encoding='utf-8'));model=json.loads((ROOT/'artifacts/model.json').read_text(encoding='utf-8'))
  train,val,test=report['metrics'];ratio=test['observed_predicted_cost']
  decision={'status':'simulation_only','model_version':model['version'],'artifact_sha256':hashlib.sha256((ROOT/'artifacts/model.json').read_bytes()).hexdigest(),
  'checks':[{'name':'Exactitude contrats / montants','pass':report['data_audit']['count_amount_mismatches']==0},
@@ -17,8 +18,9 @@ def main():
  {'name':'Validation frais / taxes / garanties / réassurance par la compagnie','pass':False}],
  'threshold_origin':'Seuils proposés de revue métier, définis comme contrôles de publication ; ils ne sont pas présentés comme préenregistrés avant observation du test.',
  'test_reuse_policy':'Ne pas ajuster sur ce test. Toute nouvelle itération le traite comme référence de diagnostic déjà consultée et requiert un nouveau jeu externe pour approbation.'}
- (ROOT/'reports/acceptance.json').write_text(json.dumps(decision,ensure_ascii=False,indent=2))
+ (ROOT/'reports/acceptance.json').write_text(json.dumps(decision,ensure_ascii=False,indent=2),encoding='utf-8')
  shutil.copy(ROOT/'reports/calibration.json',ROOT/'dist/calibration.json');shutil.copy(ROOT/'reports/acceptance.json',ROOT/'dist/acceptance.json')
+ lvl=level_diagnostic(report);(ROOT/'reports/level_diagnostic.json').write_text(json.dumps(lvl,ensure_ascii=False,indent=2),encoding='utf-8');ls,lu=lvl['largest_claim_sensitivity'],lvl['level_uncertainty']
  ci=report['test_aggregate_cost_op_bootstrap95'];gain=(1-test['pure_tweedie_deviance_p15']/test['pure_baseline_deviance_p15'])*100
  text=f'''# Calibration actuarielle — {model['version']}
 
@@ -56,6 +58,20 @@ Variables : âge du conducteur et du véhicule par tranches, puissance fiscale p
 
 Le gain de déviance de prime pure sur test est de {gain:.2f} %. Ce faible gain de classement/ajustement ne compense pas le défaut de niveau agrégé. Les résultats par segment, y compris les mauvais résultats, sont dans test_segments.csv.
 
+## Pourquoi la charge test est surestimée
+Le bootstrap ci-dessus ne rééchantillonne que le test : il traite le niveau prédit comme connu. Or ce niveau est appris sur train, où le plus gros sinistre ({ls['largest_train_claim']:,.0f} EUR) pèse {100*ls['largest_share_of_train_cost']:.1f} % de la charge et les dix plus gros {100*ls['top10_share_of_train_cost']:.1f} %. Le recalage multiplicatif équilibre le modèle sur train : ce sinistre relève le niveau prédit de toutes les polices.
+
+| Diagnostic (agrégats versionnés, sans réajustement) | Validation | Test |
+|---|---:|---:|
+| O/P charge publié | {val['observed_predicted_cost']:.4f} | {ratio:.4f} |
+| O/P charge si le plus gros sinistre de train n'avait pas été tiré (niveau × {ls['level_factor_without_largest']:.4f}) | {ls['validation_cost_op_without_largest']:.4f} | {ls['test_cost_op_without_largest']:.4f} |
+
+Ce seul sinistre explique plus de la moitié de l'écart de test ; sans lui, la validation passerait en sous-estimation : le niveau « vrai » se situe entre les deux.
+
+Incertitude du niveau appris : erreur-type relative de la sévérité moyenne de train {100*lu['relative_se_train_severity_mean']:.1f} % (√((q − 1)/n), q = {report['dispersion_diagnostics']['gamma_empirical_relative_second_moment']:.1f}), de la fréquence {100*lu['relative_se_train_frequency']:.1f} %. Combinée à l'échantillonnage du test, l'intervalle à 95 % du ratio de charge devient [{lu['combined_interval95'][0]:.4f} ; {lu['combined_interval95'][1]:.4f}] au lieu de [{ci[0]:.4f} ; {ci[1]:.4f}] (approximation normale en log, ordre de grandeur avec une queue aussi lourde). Il reste sous 1 : une part de la surestimation n'est pas du bruit d'échantillonnage.
+
+Correction à évaluer, qui exige les données et un nouvel échantillon indépendant : estimer la charge des gros sinistres par un modèle de queue (loi de Pareto généralisée au-delà d'un seuil) plutôt que par l'excédent réalisé sur train. Détail : level_diagnostic.json.
+
 ## Diagnostics de dispersion
 Sur train, la dispersion de Pearson du Poisson vaut {report['dispersion_diagnostics']['poisson_pearson_phi']:.4f}. Le ratio résiduel rapporté à la variance NB2 vaut {report['dispersion_diagnostics']['nb2_pearson_residual_ratio']:.4f}, donc le mélange NB2 ne résout pas toute la surdispersion.
 
@@ -92,7 +108,7 @@ Montant HT = (exposition future × prime pure annuelle + frais fixes) / (1 − t
 ## Suivi proposé
 Contrôler exposition, mix de risques, modalités inconnues, fréquence, sévérité, ratio O/P global et par segment, gros sinistres et dérive des entrées. Revue mensuelle des indicateurs avec une fenêtre suffisamment mature et revue formelle après tout changement de modèle. Aucun recalibrage automatique à partir des simulations saisies.
 '''
- (ROOT/'reports/MODEL_CARD.md').write_text(text)
+ (ROOT/'reports/MODEL_CARD.md').write_text(text,encoding='utf-8')
  # Synthetic profiles for tests only; no policy records or identifiers are published.
  fixtures=[]
  for age in [18,24,25,44,65,100]:
@@ -100,6 +116,6 @@ Contrôler exposition, mix de risques, modalités inconnues, fréquence, sévér
    for area in ['A','F']:
     profile=dict(DrivAge=age,VehAge=7,VehPower=6,VehGas=fuel,Area=area,Region='Centre')
     fixtures.append({'profile':profile,'prediction':predict(profile,model)})
- (ROOT/'tests/profile_fixtures.json').write_text(json.dumps(fixtures,ensure_ascii=False,indent=2))
+ (ROOT/'tests/profile_fixtures.json').write_text(json.dumps(fixtures,ensure_ascii=False,indent=2),encoding='utf-8')
  print('Rapport, contrôles et 24 profils synthétiques générés.')
 if __name__=='__main__':main()
