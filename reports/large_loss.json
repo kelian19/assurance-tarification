@@ -1,0 +1,113 @@
+{
+  "published_model": "fremtpl2-2026-11-v1",
+  "test_role": "lecture descriptive (déjà consulté) ; aucune sélection sur le test",
+  "bootstrap": {
+    "replicates": 500,
+    "seed": 20261124,
+    "test_cost_op": 0.8241479844747365,
+    "train_balance": 1.000943645516878,
+    "test_only_interval95": [
+      0.7335942151188827,
+      0.9331790210088104
+    ],
+    "full_interval95": [
+      0.6364362346851485,
+      1.0464839918304962
+    ],
+    "share_replicates_op_at_least_1": 0.084,
+    "note": "Poids de Poisson par police ; la forme des GLM est figée, seul le niveau est recalé à chaque réplique."
+  },
+  "gpd": {
+    "50000": {
+      "exceedances_train": 55,
+      "xi": 0.8396848234187955,
+      "sigma": 40891.84024597147,
+      "gpd_load_per_claim": 881.823818952486,
+      "empirical_load_per_claim": 592.0986372493558,
+      "gpd_load_interval90": [
+        250.1354152912098,
+        3845.155573093306
+      ],
+      "share_infinite_mean_replicates": 0.2766666666666666,
+      "alpha": 0.0
+    },
+    "100000": {
+      "exceedances_train": 24,
+      "xi": 0.7973992104076872,
+      "sigma": 86752.34575192566,
+      "gpd_load_per_claim": 645.9642051304897,
+      "empirical_load_per_claim": 482.6035263058646,
+      "gpd_load_interval90": [
+        135.2347090074146,
+        4938.90798997225
+      ],
+      "share_infinite_mean_replicates": 0.2533333333333333,
+      "alpha": 0.0
+    },
+    "250000": {
+      "exceedances_train": 7,
+      "xi": 1.2198602708483988,
+      "sigma": 169892.462959058,
+      "gpd_load_per_claim": Infinity,
+      "empirical_load_per_claim": 355.8203494877114,
+      "gpd_load_interval90": [
+        69.235350467765,
+        3326.0587978758876
+      ],
+      "share_infinite_mean_replicates": 0.41532258064516125,
+      "alpha": 0.0
+    }
+  },
+  "variants": [
+    {
+      "variant": "modèle publié (sans plafond)",
+      "threshold": null,
+      "tail_per_claim": 0.0,
+      "validation_cost_op": 0.9462854331090186,
+      "validation_tweedie_p15": 83.85645234085723,
+      "test_cost_op_descriptive": 0.8241479844747365
+    },
+    {
+      "variant": "plafond 50 k€ + excédent réalisé",
+      "threshold": 50000.0,
+      "tail_per_claim": 592.0986372493558,
+      "validation_cost_op": 0.9466822816646581,
+      "validation_tweedie_p15": 84.20279512283926,
+      "test_cost_op_descriptive": 0.8251231727589647
+    },
+    {
+      "variant": "plafond 50 k€ + queue GPD",
+      "threshold": 50000.0,
+      "tail_per_claim": 881.823818952486,
+      "validation_cost_op": 0.8434469514590939,
+      "validation_tweedie_p15": 84.62365626356343,
+      "test_cost_op_descriptive": 0.7351354558438756
+    },
+    {
+      "variant": "plafond 100 k€ + excédent réalisé",
+      "threshold": 100000.0,
+      "tail_per_claim": 482.6035263058646,
+      "validation_cost_op": 0.9467513937604096,
+      "validation_tweedie_p15": 84.00477166876911,
+      "test_cost_op_descriptive": 0.8249618325053966
+    },
+    {
+      "variant": "plafond 100 k€ + queue GPD",
+      "threshold": 100000.0,
+      "tail_per_claim": 645.9642051304897,
+      "validation_cost_op": 0.8856270195154482,
+      "validation_tweedie_p15": 84.2139242456542,
+      "test_cost_op_descriptive": 0.7717086473993906
+    },
+    {
+      "variant": "plafond 250 k€ + excédent réalisé",
+      "threshold": 250000.0,
+      "tail_per_claim": 355.8203494877114,
+      "validation_cost_op": 0.946527661012589,
+      "validation_tweedie_p15": 83.8555094084261,
+      "test_cost_op_descriptive": 0.8244297264920433
+    }
+  ],
+  "selected_on_validation": "plafond 250 k€ + excédent réalisé",
+  "reading": "Choix sur la validation uniquement ; les ratios de test sont descriptifs. Une variante retenue ainsi ne peut pas être déclarée validée sur ce test déjà consulté : il faut un nouvel échantillon indépendant."
+}

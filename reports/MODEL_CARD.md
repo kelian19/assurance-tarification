@@ -34,19 +34,23 @@ Variables : âge du conducteur et du véhicule par tranches, puissance fiscale p
 
 Le gain de déviance de prime pure sur test est de 0.41 %. Ce faible gain de classement/ajustement ne compense pas le défaut de niveau agrégé. Les résultats par segment, y compris les mauvais résultats, sont dans test_segments.csv.
 
-## Pourquoi la charge test est surestimée
-Le bootstrap ci-dessus ne rééchantillonne que le test : il traite le niveau prédit comme connu. Or ce niveau est appris sur train, où le plus gros sinistre (4,075,401 EUR) pèse 10.8 % de la charge et les dix plus gros 21.4 %. Le recalage multiplicatif équilibre le modèle sur train : ce sinistre relève le niveau prédit de toutes les polices.
+## La surestimation de la charge test est-elle significative ?
+Le bootstrap ci-dessus ne rééchantillonne que le test : il traite le niveau prédit comme connu. Or ce niveau est appris sur train, où le plus gros sinistre (4,075,401 EUR) pèse 10.8 % de la charge et les dix plus gros 21.4 %. Le recalage multiplicatif équilibre le modèle sur train : ce sinistre relève le niveau prédit de toutes les polices ; sans lui, l'O/P charge passerait à 0.9241 sur test et 1.0611 sur validation.
 
-| Diagnostic (agrégats versionnés, sans réajustement) | Validation | Test |
-|---|---:|---:|
-| O/P charge publié | 0.9463 | 0.8241 |
-| O/P charge si le plus gros sinistre de train n'avait pas été tiré (niveau × 0.8918) | 1.0611 | 0.9241 |
+Bootstrap complet (500 répliques, polices de train et de test rééchantillonnées, niveau recalé sur le train de chaque réplique) : intervalle à 95 % de l'O/P charge de test **[0.6364 ; 1.0465]**, contre [0.7336 ; 0.9332] en ne rééchantillonnant que le test ; 8.4 % des répliques ont un O/P ≥ 1. **L'écart est compatible avec l'aléa des gros sinistres** ; il ne démontre pas un biais du modèle. Une approximation normale (level_diagnostic.json) donnait un intervalle trop étroit : la queue est trop lourde pour elle.
 
-Ce seul sinistre explique plus de la moitié de l'écart de test ; sans lui, la validation passerait en sous-estimation : le niveau « vrai » se situe entre les deux.
+Queue des coûts : une loi de Pareto généralisée ajustée aux dépassements de train a un indice de queue ξ ≈ 0.80 au seuil de 100 000 EUR (variance infinie si ξ > 0,5) et ξ > 1 à 250 000 EUR (moyenne infinie). Avec une telle queue, la charge observée sur un échantillon est le plus souvent inférieure à son espérance. La GPD ne baisse pas la charge de queue, elle l'augmente (646 contre 483 EUR par sinistre à 100 000 EUR) : remplacer l'excédent réalisé par une GPD n'est pas une correction de la surestimation.
 
-Incertitude du niveau appris : erreur-type relative de la sévérité moyenne de train 4.3 % (√((q − 1)/n), q = 30.1), de la fréquence 1.1 %. Combinée à l'échantillonnage du test, l'intervalle à 95 % du ratio de charge devient [0.7094 ; 0.9575] au lieu de [0.7261 ; 0.9279] (approximation normale en log, ordre de grandeur avec une queue aussi lourde). Il reste sous 1 : une part de la surestimation n'est pas du bruit d'échantillonnage.
+| Variante de sévérité (choix sur validation) | Charge de queue / sinistre | O/P validation | Déviance Tweedie validation | O/P test (descriptif) |
+|---|---:|---:|---:|---:|
+| modèle publié (sans plafond) | 0 | 0.9463 | 83.8565 | 0.8241 |
+| plafond 50 k€ + excédent réalisé | 592 | 0.9467 | 84.2028 | 0.8251 |
+| plafond 50 k€ + queue GPD | 882 | 0.8434 | 84.6237 | 0.7351 |
+| plafond 100 k€ + excédent réalisé | 483 | 0.9468 | 84.0048 | 0.8250 |
+| plafond 100 k€ + queue GPD | 646 | 0.8856 | 84.2139 | 0.7717 |
+| plafond 250 k€ + excédent réalisé | 356 | 0.9465 | 83.8555 | 0.8244 |
 
-Correction à évaluer, qui exige les données et un nouvel échantillon indépendant : estimer la charge des gros sinistres par un modèle de queue (loi de Pareto généralisée au-delà d'un seuil) plutôt que par l'excédent réalisé sur train. Détail : level_diagnostic.json.
+La meilleure variante en validation (plafond 250 k€ + excédent réalisé) ne réduit la déviance que de 0.0009 et laisse l'O/P inchangé : le modèle publié est conservé. Détail : large_loss.json, level_diagnostic.json.
 
 ## Diagnostics de dispersion
 Sur train, la dispersion de Pearson du Poisson vaut 1.7644. Le ratio résiduel rapporté à la variance NB2 vaut 1.7083, donc le mélange NB2 ne résout pas toute la surdispersion.

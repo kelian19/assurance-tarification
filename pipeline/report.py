@@ -20,6 +20,7 @@ def main():
  'test_reuse_policy':'Ne pas ajuster sur ce test. Toute nouvelle itération le traite comme référence de diagnostic déjà consultée et requiert un nouveau jeu externe pour approbation.'}
  (ROOT/'reports/acceptance.json').write_text(json.dumps(decision,ensure_ascii=False,indent=2),encoding='utf-8')
  shutil.copy(ROOT/'reports/calibration.json',ROOT/'dist/calibration.json');shutil.copy(ROOT/'reports/acceptance.json',ROOT/'dist/acceptance.json')
+ ll=json.loads((ROOT/'reports/large_loss.json').read_text(encoding='utf-8'));lltable='\n'.join(f"| {v['variant']} | {v['tail_per_claim']:,.0f} | {v['validation_cost_op']:.4f} | {v['validation_tweedie_p15']:.4f} | {v['test_cost_op_descriptive']:.4f} |" for v in ll['variants'])
  lvl=level_diagnostic(report);(ROOT/'reports/level_diagnostic.json').write_text(json.dumps(lvl,ensure_ascii=False,indent=2),encoding='utf-8');ls,lu=lvl['largest_claim_sensitivity'],lvl['level_uncertainty']
  ci=report['test_aggregate_cost_op_bootstrap95'];gain=(1-test['pure_tweedie_deviance_p15']/test['pure_baseline_deviance_p15'])*100
  text=f'''# Calibration actuarielle — {model['version']}
@@ -58,19 +59,18 @@ Variables : âge du conducteur et du véhicule par tranches, puissance fiscale p
 
 Le gain de déviance de prime pure sur test est de {gain:.2f} %. Ce faible gain de classement/ajustement ne compense pas le défaut de niveau agrégé. Les résultats par segment, y compris les mauvais résultats, sont dans test_segments.csv.
 
-## Pourquoi la charge test est surestimée
-Le bootstrap ci-dessus ne rééchantillonne que le test : il traite le niveau prédit comme connu. Or ce niveau est appris sur train, où le plus gros sinistre ({ls['largest_train_claim']:,.0f} EUR) pèse {100*ls['largest_share_of_train_cost']:.1f} % de la charge et les dix plus gros {100*ls['top10_share_of_train_cost']:.1f} %. Le recalage multiplicatif équilibre le modèle sur train : ce sinistre relève le niveau prédit de toutes les polices.
+## La surestimation de la charge test est-elle significative ?
+Le bootstrap ci-dessus ne rééchantillonne que le test : il traite le niveau prédit comme connu. Or ce niveau est appris sur train, où le plus gros sinistre ({ls['largest_train_claim']:,.0f} EUR) pèse {100*ls['largest_share_of_train_cost']:.1f} % de la charge et les dix plus gros {100*ls['top10_share_of_train_cost']:.1f} %. Le recalage multiplicatif équilibre le modèle sur train : ce sinistre relève le niveau prédit de toutes les polices ; sans lui, l'O/P charge passerait à {ls['test_cost_op_without_largest']:.4f} sur test et {ls['validation_cost_op_without_largest']:.4f} sur validation.
 
-| Diagnostic (agrégats versionnés, sans réajustement) | Validation | Test |
-|---|---:|---:|
-| O/P charge publié | {val['observed_predicted_cost']:.4f} | {ratio:.4f} |
-| O/P charge si le plus gros sinistre de train n'avait pas été tiré (niveau × {ls['level_factor_without_largest']:.4f}) | {ls['validation_cost_op_without_largest']:.4f} | {ls['test_cost_op_without_largest']:.4f} |
+Bootstrap complet ({ll['bootstrap']['replicates']} répliques, polices de train et de test rééchantillonnées, niveau recalé sur le train de chaque réplique) : intervalle à 95 % de l'O/P charge de test **[{ll['bootstrap']['full_interval95'][0]:.4f} ; {ll['bootstrap']['full_interval95'][1]:.4f}]**, contre [{ll['bootstrap']['test_only_interval95'][0]:.4f} ; {ll['bootstrap']['test_only_interval95'][1]:.4f}] en ne rééchantillonnant que le test ; {100*ll['bootstrap']['share_replicates_op_at_least_1']:.1f} % des répliques ont un O/P ≥ 1. **L'écart est compatible avec l'aléa des gros sinistres** ; il ne démontre pas un biais du modèle. Une approximation normale (level_diagnostic.json) donnait un intervalle trop étroit : la queue est trop lourde pour elle.
 
-Ce seul sinistre explique plus de la moitié de l'écart de test ; sans lui, la validation passerait en sous-estimation : le niveau « vrai » se situe entre les deux.
+Queue des coûts : une loi de Pareto généralisée ajustée aux dépassements de train a un indice de queue ξ ≈ {ll['gpd']['100000']['xi']:.2f} au seuil de 100 000 EUR (variance infinie si ξ > 0,5) et ξ > 1 à 250 000 EUR (moyenne infinie). Avec une telle queue, la charge observée sur un échantillon est le plus souvent inférieure à son espérance. La GPD ne baisse pas la charge de queue, elle l'augmente ({ll['gpd']['100000']['gpd_load_per_claim']:,.0f} contre {ll['gpd']['100000']['empirical_load_per_claim']:,.0f} EUR par sinistre à 100 000 EUR) : remplacer l'excédent réalisé par une GPD n'est pas une correction de la surestimation.
 
-Incertitude du niveau appris : erreur-type relative de la sévérité moyenne de train {100*lu['relative_se_train_severity_mean']:.1f} % (√((q − 1)/n), q = {report['dispersion_diagnostics']['gamma_empirical_relative_second_moment']:.1f}), de la fréquence {100*lu['relative_se_train_frequency']:.1f} %. Combinée à l'échantillonnage du test, l'intervalle à 95 % du ratio de charge devient [{lu['combined_interval95'][0]:.4f} ; {lu['combined_interval95'][1]:.4f}] au lieu de [{ci[0]:.4f} ; {ci[1]:.4f}] (approximation normale en log, ordre de grandeur avec une queue aussi lourde). Il reste sous 1 : une part de la surestimation n'est pas du bruit d'échantillonnage.
+| Variante de sévérité (choix sur validation) | Charge de queue / sinistre | O/P validation | Déviance Tweedie validation | O/P test (descriptif) |
+|---|---:|---:|---:|---:|
+{lltable}
 
-Correction à évaluer, qui exige les données et un nouvel échantillon indépendant : estimer la charge des gros sinistres par un modèle de queue (loi de Pareto généralisée au-delà d'un seuil) plutôt que par l'excédent réalisé sur train. Détail : level_diagnostic.json.
+La meilleure variante en validation ({ll['selected_on_validation']}) ne réduit la déviance que de {ll['variants'][0]['validation_tweedie_p15']-min(v['validation_tweedie_p15'] for v in ll['variants']):.4f} et laisse l'O/P inchangé : le modèle publié est conservé. Détail : large_loss.json, level_diagnostic.json.
 
 ## Diagnostics de dispersion
 Sur train, la dispersion de Pearson du Poisson vaut {report['dispersion_diagnostics']['poisson_pearson_phi']:.4f}. Le ratio résiduel rapporté à la variance NB2 vaut {report['dispersion_diagnostics']['nb2_pearson_residual_ratio']:.4f}, donc le mélange NB2 ne résout pas toute la surdispersion.

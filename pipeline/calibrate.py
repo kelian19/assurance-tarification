@@ -41,7 +41,8 @@ def record(name,df,frequency,severity,baseline_freq,baseline_sev):
  'frequency_baseline_deviance':float(mean_poisson_deviance(n/e,np.full(len(e),baseline_freq),sample_weight=e)),
  'pure_tweedie_deviance_p15':float(mean_tweedie_deviance(y,pure,power=1.5,sample_weight=e)),
  'pure_baseline_deviance_p15':float(mean_tweedie_deviance(y,np.full(len(e),baseline_freq*baseline_sev),power=1.5,sample_weight=e))}
-def main():
+def prepare_data():
+ """Lecture, audit, séparation stable par contrat et matrice de variables (partagé avec l'étude des gros sinistres)."""
  source=download();f=pyreadr.read_r(str(ROOT/'data/raw/freMTPL2freq.rda'))['freMTPL2freq'];s=pyreadr.read_r(str(ROOT/'data/raw/freMTPL2sev.rda'))['freMTPL2sev']
  for df in [f,s]:df['IDpol']=df.IDpol.astype(str)
  assert f.IDpol.is_unique
@@ -62,6 +63,9 @@ def main():
  G=groups(d);encoder.fit(G.loc[train.index]);X=encoder.transform(G)
  print('Données auditées, matrice',X.shape,flush=True)
  ix={key:d.index[d.split==key].to_numpy() for key in ['train','validation','test']}
+ return source,f,s,d,audit,train,val,test,G,encoder,X,ix
+def main():
+ source,f,s,d,audit,train,val,test,G,encoder,X,ix=prepare_data()
  n=d.ClaimNb.to_numpy();e=d.Exposure.to_numpy();f_candidates=[];f_models=[]
  for alpha in [0.,.0001,.01]:
   model=PoissonRegressor(alpha=alpha,max_iter=300,tol=1e-8,solver='newton-cholesky')

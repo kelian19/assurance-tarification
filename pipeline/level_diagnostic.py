@@ -9,7 +9,8 @@ Deux mesures, sans réajustement ni nouvelle lecture du test :
 2. incertitude d'estimation du niveau : erreur-type relative de la moyenne de sévérité de train, √((q − 1)/n), avec
    q = E[(Y/μ̂)²] le second moment relatif publié, et de la fréquence, √(φ/N) ; combinée à l'erreur d'échantillonnage du test
    (déduite de l'intervalle bootstrap publié) en échelle logarithmique. Approximation normale : avec une queue aussi lourde,
-   la loi de la moyenne est asymétrique ; l'intervalle obtenu est un ordre de grandeur, pas une garantie de couverture.
+   la loi de la moyenne est asymétrique et cet intervalle est trop étroit : la référence est le bootstrap complet de
+   pipeline/large_loss.py, qui contient 1.
 
 python -m pipeline.level_diagnostic   (écrit reports/level_diagnostic.json)
 """
@@ -38,9 +39,8 @@ def level_diagnostic(report):
          'p_value_two_sided_normal':math.erfc(abs(z)/math.sqrt(2))}
     return {'largest_claim_sensitivity':sens,'level_uncertainty':unc,
             'reading':['Le test seul ne mesure pas l’incertitude du niveau appris : celle-ci vient de quelques gros sinistres de train.',
-                       'Sans le plus gros sinistre de train, le niveau prédit baisserait d’environ 11 % : il explique à lui seul plus de la moitié de l’écart test, et la validation passerait en sous-estimation : le vrai niveau est entre les deux.',
-                       'Même en ajoutant l’incertitude du niveau appris, l’intervalle reste sous 1 : une part de la surestimation n’est pas du bruit.',
-                       'Correction à évaluer (exige les données et un nouvel échantillon indépendant) : charge des gros sinistres estimée par un modèle de queue (GPD) plutôt que par l’excédent réalisé sur train.'],
+                       'Sans le plus gros sinistre de train, le niveau prédit baisserait d’environ 11 % : il explique à lui seul plus de la moitié de l’écart test, et la validation passerait en sous-estimation.',
+                       'L’intervalle combiné ci-dessus repose sur une approximation normale, trop étroite pour une queue aussi lourde : le bootstrap complet (pipeline/large_loss.py) donne [0,64 ; 1,05], qui contient 1.'],
             'method':'Agrégats versionnés de reports/calibration.json ; aucun réajustement, aucune nouvelle lecture du test ; approximation normale en log.'}
 
 def main():
