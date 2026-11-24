@@ -1,5 +1,7 @@
 # Clair — Tarification automobile calibrée
 
+[![Tests](https://github.com/kelian19/assurance-tarification/actions/workflows/tests.yml/badge.svg)](https://github.com/kelian19/assurance-tarification/actions/workflows/tests.yml)
+
 Interface métier en français, moteur Python, GLM fréquence/sévérité réellement entraînés sur **freMTPL2** et personnalisation bayésienne / crédibilité structurelle.
 
 **Statut : calibration historique réalisée ; simulation uniquement.** Le test révèle une surestimation de la charge. Le tarif ne dispose pas d’une validation commerciale ou temporelle sur un portefeuille récent.
