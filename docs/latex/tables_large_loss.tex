@@ -1,0 +1,33 @@
+% Fichier généré par python -m pipeline.large_loss_tex ; ne pas modifier à la main.
+\newcommand{\tabLLBootstrap}{%
+\begin{tabular}{lrrc}\toprule
+Bootstrap (500 répliques) & Borne basse & Borne haute & Contient 1 \\\midrule
+Test seul (niveau supposé connu) & 0{,}734 & 0{,}933 & non \\
+Apprentissage et test (niveau recalé à chaque réplique) & 0{,}636 & 1{,}046 & \textbf{oui} \\
+\bottomrule\end{tabular}
+}
+\newcommand{\llShareAboveOne}{%
+8{,}4\,\%
+}
+\newcommand{\llTestOP}{%
+0{,}824
+}
+\newcommand{\tabLLGPD}{%
+\begin{tabular}{rrrrrrr}\toprule
+Seuil $u$ & Dépassements & $\widehat\xi$ & Excédent réalisé & Charge GPD & IC 90\,\% GPD & Répliques $\xi\geq1$ \\\midrule
+50\,k\texteuro{} & 55 & 0{,}84 & 592 & 882 & 250--3\,845 & 28\,\% \\
+100\,k\texteuro{} & 24 & 0{,}80 & 483 & 646 & 135--4\,939 & 25\,\% \\
+250\,k\texteuro{} & 7 & 1{,}22 & 356 & infinie & 69--3\,326 & 42\,\% \\
+\bottomrule\end{tabular}
+}
+\newcommand{\tabLLVariants}{%
+\begin{tabular}{lrrrr}\toprule
+Sévérité & Queue / sinistre & O/P validation & Tweedie validation & O/P test (descriptif) \\\midrule
+modèle publié (sans plafond) & 0 & 0{,}9463 & 83{,}8565 & 0{,}8241 \\
+plafond 50 k\texteuro{} + excédent réalisé & 592 & 0{,}9467 & 84{,}2028 & 0{,}8251 \\
+plafond 50 k\texteuro{} + queue GPD & 882 & 0{,}8434 & 84{,}6237 & 0{,}7351 \\
+plafond 100 k\texteuro{} + excédent réalisé & 483 & 0{,}9468 & 84{,}0048 & 0{,}8250 \\
+plafond 100 k\texteuro{} + queue GPD & 646 & 0{,}8856 & 84{,}2139 & 0{,}7717 \\
+plafond 250 k\texteuro{} + excédent réalisé & 356 & 0{,}9465 & 83{,}8555 & 0{,}8244 \\
+\bottomrule\end{tabular}
+}

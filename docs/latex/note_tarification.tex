@@ -58,12 +58,13 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\small\bfseries\color{Forest}CLAIR / NOTE MÉTHODOLOGIQUE}
-\fancyhead[R]{\small\color{Muted}Version du 12 novembre 2026}
+\fancyhead[R]{\small\color{Muted}Version du 24 novembre 2026}
 \fancyfoot[L]{\footnotesize\color{Muted}Méthodes implémentées, résultats mesurés, limites explicites.}
 \fancyfoot[R]{\footnotesize\color{Forest}\thepage\,/\,\pageref{LastPage}}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 \hypersetup{pdftitle={Clair — Tarification automobile : modèles et validation}}
+\input{tables_large_loss.tex}
 \begin{document}
 {\small\color{Muted}\textbf{NOTE 01}\quad TARIFICATION AUTOMOBILE}
 \vspace{5mm}
@@ -82,6 +83,7 @@
 \item Audit de la source originale \texttt{freMTPL2} : \textbf{677\,991 contrats} et \textbf{26\,444 sinistres}, sans incohérence entre les nombres et les montants disponibles.
 \item GLM Poisson pour la fréquence et Gamma pour le coût moyen ; comparaison d'un challenger NB2 et d'une sévérité plafonnée avec recharge des excédents.
 \item Calibration de l'hétérogénéité Poisson--Gamma ; prime bayésienne et crédibilité \emph{structurelle} calculables depuis un historique saisi.
+\item Étude des gros sinistres : bootstrap complet du niveau de charge et queue de Pareto généralisée (section~\ref{sec:grossinistres}).
 \item Coefficients versionnés, exports traçables, tests de calcul et de parité Python/navigateur.
 \end{itemize}
 
@@ -191,6 +193,39 @@ Une variante a testé un plafond à 100\,000\texteuro{} avec recharge des excéd
 \begin{limitbox}
 Un plafonnement sans recharge change la cible. Multiplier les primes par le ratio 0,824 observé sur le test ferait aussi perdre l'indépendance de cette évaluation. Les corrections futures doivent être choisies ailleurs, puis évaluées sur de nouvelles données.
 \end{limitbox}
+
+\subsection*{Biais du modèle ou aléa des gros sinistres ?}\label{sec:grossinistres}
+L'intervalle bootstrap de la figure~\ref{fig:calibration} ne rééchantillonne que le test : il traite le niveau prédit comme connu. Or ce niveau est appris sur l'apprentissage, où un seul sinistre de 4,08\,M\texteuro{} pèse 10,8\,\% de la charge ; le recalage multiplicatif de la sévérité le répercute sur toutes les polices. Un bootstrap \emph{complet} rééchantillonne aussi les polices d'apprentissage (avec leurs sinistres) et recale le niveau dans chaque réplique, la forme des GLM restant figée :
+\[
+\widehat{\mathrm{O/P}}^{(b)}=\frac{\sum_{i\in\text{test}}w_i^{(b)}S_i}{L^{(b)}\sum_{i\in\text{test}}w_i^{(b)}e_i\pi_i^0},\qquad
+L^{(b)}=\frac{\sum_{j\in\text{app.}}v_j^{(b)}S_j}{\sum_{j\in\text{app.}}v_j^{(b)}e_j\pi_j^0},\qquad w,v\sim\Pois(1).
+\]
+\begin{table}[htbp]\centering\small
+\tabLLBootstrap
+\caption{Intervalles à 95\,\% du ratio de charge observée/prédite sur le test (\llTestOP). Avec le bootstrap complet, \llShareAboveOne{} des répliques ont un ratio au moins égal à 1.}
+\end{table}
+L'écart de test est donc \textbf{compatible avec l'aléa des gros sinistres} ; il ne démontre pas un biais du modèle. Une approximation normale de la même incertitude donnait un intervalle trop étroit, ne contenant pas 1 : la queue est trop lourde pour elle.
+
+\textbf{Queue de Pareto généralisée.} Au-delà d'un seuil $u$, les excédents $Y-u$ suivent approximativement une GPD de paramètres $(\xi,\sigma)$ (théorème de Pickands--Balkema--de Haan), et la charge de queue par sinistre vaut
+\[
+\E[(Y-u)_+]=\Pr(Y>u)\,\frac{\sigma}{1-\xi}\quad(\xi<1),
+\]
+infinie si $\xi\geq1$. L'ajustement sur l'apprentissage donne $\widehat\xi\approx0{,}8$ : variance infinie, moyenne à peine finie.
+\begin{table}[htbp]\centering\small
+\tabLLGPD
+\caption{Ajustement GPD des excédents d'apprentissage par seuil : charge de queue réalisée et charge GPD par sinistre (en euros), intervalle bootstrap à 90\,\% et part des répliques à moyenne infinie.}
+\end{table}
+La GPD \emph{augmente} la charge de queue au lieu de la baisser : remplacer l'excédent réalisé par une GPD ne corrige pas la surestimation. Avec une telle queue, la charge observée sur un échantillon est le plus souvent inférieure à son espérance, ce qui explique le signe de l'écart.
+\begin{table}[htbp]\centering\small
+\tabLLVariants
+\caption{Variantes de sévérité choisies sur la validation ; le test, déjà consulté, n'est lu qu'à titre descriptif.}
+\end{table}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figures/fig_large_loss.pdf}
+\caption{À gauche, intervalle du ratio de charge selon le bootstrap (le point blanc est la valeur observée). À droite, charge de queue par sinistre : excédent réalisé sur l'apprentissage contre GPD.}\label{fig:largeloss}
+\end{figure}
+\textbf{Décision.} La meilleure variante sur la validation ne gagne qu'un millième de déviance et laisse le ratio inchangé : le modèle publié est conservé, l'écart est documenté. Le reproduit : \texttt{python pipeline/large\_loss.py} (données), puis \texttt{python -m pipeline.large\_loss\_tex} (tableaux et figure).
 
 \begin{figure}[htbp]
 \centering
